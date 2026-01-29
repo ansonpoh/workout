@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { supabaseClient } from "@/lib/supabaseclient"
+import { supabaseServer } from "@/lib/supabaseServer";
 
 export default function SupabaseTestPage() {
     const [result, setResult] = useState<string>("Testing...");
@@ -16,6 +17,8 @@ export default function SupabaseTestPage() {
 
           setResult(`Connected. ${data[0].id}`);
         })();
+
+
     },[]);
 
     return (
