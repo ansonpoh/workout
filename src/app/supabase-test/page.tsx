@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { supabaseClient } from "@/lib/supabaseclient"
-import { supabaseServer } from "@/lib/supabaseServer";
+import axios from "axios";
 
 export default function SupabaseTestPage() {
     const [result, setResult] = useState<string>("Testing...");
+    const [fetched, setFetched] = useState<string>();
 
     useEffect(() => {
         (async () => {
@@ -13,8 +14,11 @@ export default function SupabaseTestPage() {
           if(error) {
             setResult(`Error: ${error.message}`);
             return;
-          }  
+          }
 
+          const res = await axios.get("/api/supabase-test");
+          setFetched("Should be 1: " + res.data[0].id);
+          
           setResult(`Connected. ${data[0].id}`);
         })();
 
@@ -26,6 +30,7 @@ export default function SupabaseTestPage() {
         <main style={{padding: 24}}>
             <h1>Supabase Connection Test</h1>
             <p>{result}</p>
+            <p>{fetched}</p>
         </main>
         </>
     )

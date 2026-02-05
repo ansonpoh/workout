@@ -12,5 +12,5 @@ export async function GET() {
     );
   }
 
-  return NextResponse.json({ ok: true, data });
+  return NextResponse.json(data);
 }
